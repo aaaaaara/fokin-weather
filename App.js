@@ -14,14 +14,19 @@ export default class extends React.Component {
 
   //2.날씨 가져오기
   getWeather = async (latitude, longitude) => {
-    const { data } = await axios.get(
+    const { 
+      data:{
+        main:{temp},
+        weather
+      } 
+    } = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=metric`
-      );//`` 변수를 문자열에 포함시켜야 하기 때문에 "" ''를 사용하지 않는다
-    
-    console.log(data);
+    );
+      
     this.setState({
       isLoading: false, 
-      temp: data.main.temp
+      condition: weather[0].main,
+      temp
     });
   };
 
@@ -51,8 +56,8 @@ export default class extends React.Component {
     
   };
   render(){
-    const { isLoading } = this.state;
-    return isLoading ? <Loading/> : <Weather/>;
+    const { isLoading, temp, condition } = this.state;
+    return isLoading ? <Loading/> : <Weather temp={Math.round(temp)} condition={condition}/>;
   };
 }
 
