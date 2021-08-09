@@ -5,6 +5,7 @@ import Weather from './Weather';
 import * as Location from 'expo-location';
 import axios from 'axios';
 
+
 const API_KEY = "ff9a2d098ee1d42e43cdcc9f3fbd6cfa";
 
 export default class extends React.Component {
@@ -57,7 +58,7 @@ export default class extends React.Component {
   };
   render(){
     const { isLoading, temp, condition } = this.state;
-    return isLoading ? <Loading/> : <Weather temp={Math.round(temp)} condition={condition}/>;
+    return isLoading ? (<Loading/>) : (<Weather temp={Math.round(temp)} condition={condition}/>);
   };
 }
 
